@@ -1,42 +1,299 @@
+/* src/App.css - 應用程式特定組件樣式 (日式簡約風格) */
+
+/* 確保 App 容器的相對定位以放置登出按鈕 */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  position: relative; 
+}
+
+/* 認證介面樣式 (Auth.jsx) */
+.auth-container {
+  max-width: 400px;
+  margin: 3em auto;
+  padding: 2.5em;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px var(--shadow-light);
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.auth-container h1 {
+  font-size: 1.8em;
+  color: var(--text-color-primary);
+  margin-bottom: 1.5em;
+  border-bottom: none; /* 移除 auth 標題的底線 */
+  padding-bottom: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.auth-container input {
+  width: calc(100% - 2em); /* 減去左右 padding */
+  margin-bottom: 1em;
+  padding: 1em;
+  font-size: 1.1em;
+  border-radius: 8px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.auth-container button {
+  width: 100%;
+  padding: 1em;
+  font-size: 1.1em;
+  border-radius: 8px;
+  margin-bottom: 0.8em; /* 按鈕之間間距 */
 }
 
-.card {
+/* Account 頁面樣式 (Account.jsx) */
+.account-container {
+  padding: 2.5em;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px var(--shadow-light);
+}
+
+.account-container h1 {
+  text-align: center;
+  color: var(--accent-color-primary);
+  margin-bottom: 1.5em;
+  padding-bottom: 0.8em;
+  border-color: var(--border-color);
+}
+
+.profile-editor {
+  margin-bottom: 2em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px dashed var(--border-color); /* 虛線分隔 */
+}
+.profile-editor h2 {
+  font-size: 1.5em;
+  color: var(--accent-color-primary);
+  margin-bottom: 1em;
+}
+
+.task-form {
+  display: flex;
+  gap: 0.8em;
+  margin-bottom: 2em;
+}
+.task-form input {
+  flex-grow: 1;
+}
+
+.filter-buttons {
+  margin-bottom: 2em;
+  padding: 0.8em;
+  background-color: var(--bg-color-dark);
+  border-radius: 8px;
+  justify-content: space-around; /* 按鈕均勻分佈 */
+  display: flex; /* 確保按鈕排成一行 */
+  flex-wrap: wrap; /* 小屏幕時換行 */
+}
+.filter-buttons button {
+  flex-grow: 1; /* 讓按鈕在空間充足時等寬 */
+  min-width: 100px; /* 最小寬度 */
+  margin: 0.3em; /* 按鈕之間的小間距 */
+}
+.filter-buttons button.active {
+  background-color: var(--accent-color-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(90, 141, 154, 0.3);
+}
+
+.task-list-container {
+  margin-top: 2em;
+}
+
+.no-tasks {
+  text-align: center;
+  color: var(--text-color-secondary);
+  font-style: italic;
   padding: 2em;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-color-dark);
 }
 
-.read-the-docs {
-  color: #888;
+/* TaskItem 樣式 (TaskItem.jsx) */
+.task-item {
+  display: flex;
+  flex-direction: column; /* 垂直佈局 */
+  background-color: #fff;
+  padding: 1.8em;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px var(--shadow-light);
+  margin-bottom: 1.5em;
+  transition: all 0.3s ease;
+  border-left: 5px solid var(--border-color); /* 左側強調邊框 */
+  position: relative; /* 用於定位 */
+}
+
+.task-item.task-complete {
+  opacity: 0.8;
+  border-left-color: var(--accent-color-primary); /* 完成任務的強調色 */
+  background-color: #f7fcfc; /* 完成後稍微變淺 */
+}
+
+.task-item.assigned-to-me {
+  border: 2px solid var(--accent-color-secondary); /* 被指派給我的任務有特殊邊框 */
+  box-shadow: 0 0 15px rgba(224, 172, 105, 0.3);
+}
+
+.task-item.error-state {
+  border-color: #cc0000;
+  box-shadow: 0 0 15px rgba(204, 0, 0, 0.3);
+}
+
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* 標題靠上對齊 */
+  gap: 1.5em;
+  margin-bottom: 1em;
+}
+
+.task-content {
+  flex-grow: 1;
+}
+
+.task-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--text-color-primary);
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+}
+.task-item.task-complete .task-title {
+  text-decoration: line-through;
+  color: var(--text-color-secondary);
+}
+
+.task-meta {
+  font-size: 0.85em;
+  color: var(--text-color-secondary);
+  margin-bottom: 0.8em;
+  display: flex;
+  flex-wrap: wrap; /* 防止溢出 */
+  gap: 0.8em; /* 元素間距 */
+}
+.task-meta-item {
+  display: flex;
+  align-items: center;
+}
+.creator-name, .assigned-name {
+  font-weight: 500;
+  margin-left: 0.4em;
+}
+.creator-name.online::before, .assigned-name.online::before {
+  content: '●';
+  color: #28a745; /* 綠色點 */
+  margin-right: 0.3em;
+  font-size: 0.9em;
+}
+.creator-name.offline::before, .assigned-name.offline::before {
+  content: '●';
+  color: #6c757d; /* 灰色點 */
+  margin-right: 0.3em;
+  font-size: 0.9em;
+}
+
+.task-description {
+  font-size: 0.95em;
+  color: var(--text-color-secondary);
+  margin-top: 1em;
+  margin-bottom: 0;
+  padding-top: 1em;
+  border-top: 1px dashed var(--border-color); /* 描述上方虛線 */
+}
+
+.input-title, .input-description, .select-assign {
+  width: 100%;
+  margin-bottom: 0.8em;
+}
+.input-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  padding: 0.6em 0.8em;
+}
+.input-description {
+  font-size: 0.95em;
+  padding: 0.8em;
+}
+
+.task-actions {
+  display: flex;
+  flex-direction: column; /* 按鈕垂直堆疊 */
+  gap: 0.8em;
+  min-width: 100px; /* 動作區塊最小寬度 */
+  flex-shrink: 0; /* 不壓縮此區塊 */
+  align-items: flex-end; /* 按鈕靠右對齊 */
+}
+.task-actions button, .task-actions select {
+  width: 100%; /* 讓動作區塊的按鈕和選擇器填滿寬度 */
+  padding: 0.6em 1em;
+  font-size: 0.9em;
+}
+
+/* 進度條樣式 */
+.progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 8px; /* 細條 */
+  margin-bottom: 0.5em;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--accent-color-primary);
+  width: 0%; /* 默認0% */
+  transition: width 0.4s ease-in-out;
+  border-radius: 4px;
+}
+
+.progress-label {
+  font-size: 0.85em;
+  color: var(--text-color-secondary);
+  text-align: right;
+  margin-bottom: 0.8em;
+}
+
+/* RWD 響應式調整 */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+  h1 { font-size: 1.8em; }
+  h2 { font-size: 1.4em; }
+
+  .account-container, .auth-container {
+    padding: 1.5em;
+  }
+
+  .task-header {
+    flex-direction: column; /* 小屏幕時任務標題和動作區垂直堆疊 */
+    align-items: stretch;
+    gap: 1em;
+  }
+  .task-actions {
+    flex-direction: row; /* 小屏幕時動作按鈕橫向排列 */
+    justify-content: flex-end; /* 靠右對齊 */
+    flex-wrap: wrap; /* 自動換行 */
+    width: 100%;
+  }
+  .task-actions button, .task-actions select {
+    width: auto; /* 自動寬度 */
+    flex-grow: 1; /* 分享空間 */
+    min-width: 80px;
+  }
+
+  .filter-buttons button {
+    margin: 0.2em;
+    font-size: 0.9em;
+    padding: 0.6em 1em;
+  }
+  .button-logout {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+  }
 }
